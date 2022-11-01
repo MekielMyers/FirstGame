@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackJack</title>
+    <link rel="icon" type="image/x-icon" href="/Images/blackJackfav.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
+
+</head>
+<style>
+    body{
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        justify-items: center;
+        background-image: url(/Images/blackjackFloor.png);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        text-align: center;
+        align-items: center;
+      
+    }
+    #container1{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        justify-items: center;
+        padding: 50px;
+        margin-left: 500px;
+        text-align: center;
+        align-items: center;
+        margin: 0px;
+    }
+    #container2{
+        display: flex;
+        flex-direction:row;
+        justify-items: center;
+        justify-content: space-between;
+        padding: 100px;
+        margin-left: 500px;
+        text-align: center;
+        align-items: center;
+        margin: 0px;
+       
+    }
+    #cB{
+        width: 150px;
+        height: 300px;
+    }
+    #dealerHand, #playerHand{
+        font-family: 'Orbitron', sans-serif;
+        font-size: 100px;
+        color: white;
+        text-shadow: black 3px 3px;
+
+    }
+    #hit {
+        margin-right:40px;
+    }
+    #stay {
+        margin-left:40px;
+    }
+    #hit, #stay{
+        
+        font-size: 50px;
+        height: 120px;
+        width: 150px;
+        font-family: 'Carter One', cursive;
+        color: white;
+        text-shadow: black 2px 2px;
+        background-color: slategray;
+
+    }
+    #handler{
+        font-family: 'Orbitron', sans-serif;
+        font-size: 30px;
+        color: white;
+        text-shadow: black 2px 2px;
+    }
+</style>
+<body>
+    <div id="container1">
+        <div id="deck"></div>
+    <div id="dealer"></div>
+        <div id="handler">Dealer Hand</div>
+    <div id="dealerHand"></div>
+        <div id="handler">Player Hand</div>
+    <div id="playerHand"></div>
+    </div>
+
+    <div id="container2">
+    <button id="hit">Hit!</button>
+    <button id="stay">Stay</button>
+    </div>
+    
+</body>
+    <script>
+        // Variables
+       const h = document.getElementById('hit')
+       const s = document.getElementById('stay')
+       const sp = document.getElementById('split')
+        var C1 = 1
+        var C2 = 2
+        var C3 = 3
+        var C4 = 4
+        var C5 = 5
+        var C6 = 6
+        var C7 = 7
+        var C8 = 8
+        var C9 = 9
+        var C10 = 10
+        var CK = 10
+        var CQ = 10
+        var CJ = 10
+        var S1 = 1
+        var S2 = 2
+        var S3 = 3
+        var S4 = 4
+        var S5 = 5
+        var S6 = 6
+        var S7 = 7
+        var S8 = 8
+        var S9 = 9
+        var S10 = 10
+        var SK = 10
+        var SQ = 10
+        var SJ = 10
+        var D1 = 1
+        var D2 = 2
+        var D3 = 3
+        var D4 = 4
+        var D5 = 5
+        var D6 = 6
+        var D7 = 7
+        var D8 = 8
+        var D9 = 9
+        var D10 = 10
+        var DK = 10
+        var DQ = 10
+        var DJ = 10
+        var H1 = 1
+        var H2 = 2
+        var H3 = 3
+        var H4 = 4
+        var H5 = 5
+        var H6 = 6
+        var H7 = 7
+        var H8 = 8
+        var H9 = 9
+        var H10 = 10
+        var HK = 10
+        var HQ = 10
+        var HJ = 10
+        var deck = [C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,D1,D2,D3,D4,D5,D6,D7,D8,D9,D10,H1,H2,H3,H4,H5,H6,H7,H8,H9,H10,CQ,SQ,DQ,HQ,SK,CK,DK,HK,CJ,SJ,DJ,HJ]
+        
+        const pH = document.getElementById('playerHand')
+        const dH = document.getElementById('dealerHand')
+        
+        pH.innerHTML = 0
+        dH.innerHTML = 0
+        //OnEvents
+        h.addEventListener('click', function(){addCard(generateCard())})
+        h.addEventListener('click', function(){dHand(dealerCard())})
+        s.addEventListener('click', dHand(0))
+        s.addEventListener('click', keepScore)
+        
+        //Functions
+        function generateCard(){
+            
+            return deck[Math.round(Math.random() * (deck.length - 1))]
+            
+        }
+        var add = 0;
+        function addCard(m){
+            var sum = Number(pH.innerHTML)
+             add = sum + m
+            pH.innerHTML=+add;
+        }
+
+        function keepScore(){
+            console.log(add)
+            console.log(dH.innerHTML)
+            if(add == dH.innerHTML && dH.innerHTML <= 21 && add <= dH.innerHTML){
+                window.alert("It's a Tie!")
+                window.location.reload()
+            }
+            else if(add > dH.innerHTML && add <= 21){
+                window.alert("Player Wins!")
+                window.location.reload()
+            }
+            else if(add < dH.innerHTML && dH.innerHTML > 21 && add <= 21){
+                window.alert("Player Wins!")
+                window.location.reload()
+            }
+            else if(dH.innerHTML > add && dH.innerHTML <= 21){
+                window.alert("Dealer Wins, better luck next time!")
+                window.location.reload()
+            }
+            else{
+                window.alert("Dealer Wins, better luck next time!")
+                window.location.reload()
+            }
+        }
+        var drAdd = 0;
+        var dSum = 0;
+        function dHand(x){
+            
+            dSum = Number(dH.innerHTML)
+            drAdd = dSum + x
+            dH.innerHTML=+drAdd;
+            console.log("Dealer's Hand" + dH.innerHTML)
+           
+        }
+        function dealerCard(){
+            
+            if(dSum <= 15){
+                return deck[Math.round(Math.random() * (deck.length - 1))]
+            }
+            
+
+            
+        }
+        
+console.log(add)
+    </script>
+</html>
